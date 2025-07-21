@@ -158,41 +158,34 @@
   })
 
   // Intro carousel
-  // var introCarousel = $("#intro-carousel")
-  // var introCarouselIndicators = $("#intro-carousel-indicators")
-  // introCarousel
-  //   .find(".carousel-inner")
-  //   .children(".carousel-item")
-  //   .each((index) => {
-  //     index === 0
-  //       ? introCarouselIndicators.append(
-  //           "<li data-target='#intro-carousel' data-slide-to='" + index + "' class='active'></li>",
-  //         )
-  //       : introCarouselIndicators.append("<li data-target='#intro-carousel' data-slide-to='" + index + "'></li>")
-  //   })
-
-  // introCarousel.on("slid.bs.carousel", function (e) {
-  //   $(this).find("h2").addClass("animate__animated animate__fadeInDown")
-  //   $(this).find("p").addClass("animate__animated animate__fadeInUp")
-  //   $(this).find(".btn-get-started").addClass("animate__animated animate__fadeInUp")
-  // })
-
-  // Initialize Owl Carousel for intro
-  $("#intro-carousel").owlCarousel({
-    autoplay: true,
-    autoplayTimeout: 5000,
-    autoplayHoverPause: false,
-    loop: true,
-    items: 1,
-    nav: false,
-    dots: false,
-    animateOut: "fadeOut",
-    animateIn: "fadeIn",
-    smartSpeed: 1000,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
-    freeDrag: false,
+  $(document).ready(() => {
+    $("#intro-carousel").owlCarousel({
+      items: 1,
+      loop: true,
+      autoplay: true,
+      autoplayTimeout: 5000,
+      autoplayHoverPause: false,
+      nav: false,
+      dots: false,
+      animateOut: "fadeOut",
+      animateIn: "fadeIn",
+      smartSpeed: 1000,
+      mouseDrag: false,
+      touchDrag: false,
+      pullDrag: false,
+      freeDrag: false,
+      responsive: {
+        0: {
+          items: 1,
+        },
+        600: {
+          items: 1,
+        },
+        1000: {
+          items: 1,
+        },
+      },
+    })
   })
 
   // Mobile Navigation
@@ -246,30 +239,68 @@
     })
   }
 
-  // Google Maps
-  if ($("#google-map").length) {
-    const google = window.google
-    var map_lat = $("#google-map").data("latitude")
-    var map_lng = $("#google-map").data("longitude")
-    var map_zoom = 15
-    var map_type = "roadmap"
+  // Google Maps initialization function
+  window.initMap = () => {
+    if (window.google && window.google.maps && $("#google-map").length) {
+      var map_lat = Number.parseFloat($("#google-map").data("latitude")) || 0.3476
+      var map_lng = Number.parseFloat($("#google-map").data("longitude")) || 32.5825
+      var map_zoom = 15
 
-    var map_options = {
-      center: new google.maps.LatLng(map_lat, map_lng),
-      zoom: map_zoom,
-      panControl: false,
-      zoomControl: true,
-      mapTypeControl: true,
-      streetViewControl: true,
-      mapTypeId: google.maps.MapTypeId[map_type.toUpperCase()],
+      var map_options = {
+        center: new window.google.maps.LatLng(map_lat, map_lng),
+        zoom: map_zoom,
+        panControl: false,
+        zoomControl: true,
+        mapTypeControl: true,
+        streetViewControl: true,
+        mapTypeId: window.google.maps.MapTypeId.ROADMAP,
+        styles: [
+          {
+            featureType: "all",
+            elementType: "geometry.fill",
+            stylers: [
+              {
+                weight: "2.00",
+              },
+            ],
+          },
+          {
+            featureType: "all",
+            elementType: "geometry.stroke",
+            stylers: [
+              {
+                color: "#9c9c9c",
+              },
+            ],
+          },
+        ],
+      }
+
+      var map = new window.google.maps.Map(document.getElementById("google-map"), map_options)
+
+      var marker = new window.google.maps.Marker({
+        position: new window.google.maps.LatLng(map_lat, map_lng),
+        map: map,
+        title: "Fuse Electrical and Security Systems",
+        icon: {
+          url:
+            "data:image/svg+xml;charset=UTF-8," +
+            encodeURIComponent(
+              '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#50d8af" stroke="#0c2e8a" stroke-width="2"/><circle cx="20" cy="20" r="8" fill="#0c2e8a"/></svg>',
+            ),
+          scaledSize: new window.google.maps.Size(40, 40),
+          anchor: new window.google.maps.Point(20, 20),
+        },
+      })
+
+      var infoWindow = new window.google.maps.InfoWindow({
+        content:
+          '<div style="padding: 10px;"><h4 style="color: #0c2e8a; margin: 0 0 5px 0;">Fuse Electrical and Security Systems</h4><p style="margin: 0; color: #666;">Professional Electrical & Security Solutions<br>Kampala, Uganda</p></div>',
+      })
+
+      marker.addListener("click", () => {
+        infoWindow.open(map, marker)
+      })
     }
-
-    var map = new google.maps.Map(document.getElementById("google-map"), map_options)
-
-    var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(map_lat, map_lng),
-      map: map,
-      title: "Fuse Electrical and Security Systems",
-    })
   }
-})(window, document, jQuery)
+})(window, document, window.jQuery)
