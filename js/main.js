@@ -160,7 +160,7 @@
   // Intro carousel
   $(document).ready(() => {
     $("#intro-carousel").owlCarousel({
-      items: 1,
+      items: 5,
       loop: true,
       autoplay: true,
       autoplayTimeout: 5000,
