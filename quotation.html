@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Get a Quote - Fuse Electrical and Security Systems</title>
+  <title>Get Quote - Fuse Electrical and Security Systems</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="electrical services, security systems, CCTV, electrical installation, Uganda" name="keywords">
+  <meta content="electrical services quote, security systems quote, CCTV quote, electrical installation quote, Uganda" name="keywords">
   <meta content="Get a free quote for professional electrical and security systems installation and maintenance services in Uganda" name="description">
 
   <!-- Favicons -->
@@ -21,15 +21,12 @@
   <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="lib/animate/animate.min.css" rel="stylesheet">
   <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-
   <!--==========================
     Top Bar
   ============================-->
@@ -81,194 +78,191 @@
   <section class="page-header">
     <div class="container">
       <h2>Get Your Free Quote</h2>
-      <p>Tell us about your project and we'll provide you with a detailed quote</p>
+      <p>Professional electrical and security solutions tailored to your needs</p>
     </div>
   </section>
 
+  <!--==========================
+    Main Content
+  ============================-->
   <main id="main">
-    <section id="quotation" class="wow fadeInUp">
+    <section class="service-section">
       <div class="container">
         <div class="row">
           <div class="col-lg-8">
             <div class="quotation-wrapper">
-              <!-- Step Indicators -->
+              <!-- Progress Steps -->
               <div class="quotation-steps">
                 <div class="step">
-                  <div class="step-header active" id="step-1-header">
+                  <div class="step-header active" data-step="1">
                     <span class="step-number">Step 1</span>
-                    <span class="step-title">Personal Info</span>
-                  </div>
-                </div>
-                <div class="step">
-                  <div class="step-header" id="step-2-header">
-                    <span class="step-number">Step 2</span>
-                    <span class="step-title">Your Address</span>
-                  </div>
-                </div>
-                <div class="step">
-                  <div class="step-header" id="step-3-header">
-                    <span class="step-number">Step 3</span>
                     <span class="step-title">Project Details</span>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-header" data-step="2">
+                    <span class="step-number">Step 2</span>
+                    <span class="step-title">Services Required</span>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-header" data-step="3">
+                    <span class="step-number">Step 3</span>
+                    <span class="step-title">Contact Information</span>
                   </div>
                 </div>
               </div>
 
               <!-- Quote Form -->
-              <form id="quotationForm" class="quotation-form" action="submit-quote.php" method="post">
-                
-                <!-- Step 1: Personal Information -->
-                <div class="form-step" id="step-1">
-                  <h3>Personal Information</h3>
-                  
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="firstName">First Name</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" required>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" required>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" class="form-control" id="phone" name="phone" required>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="propertyDescription">Describe your property type as much as possible: rooms, electric equipment, volumes, etc...</label>
-                    <textarea class="form-control" id="propertyDescription" name="propertyDescription" rows="4" placeholder="Please provide details about your property..."></textarea>
-                  </div>
-                </div>
-
-                <!-- Step 2: Address Information -->
-                <div class="form-step" id="step-2" style="display: none;">
-                  <h3>Your Address</h3>
+              <form id="quoteForm" action="submit-quote.php" method="POST">
+                <!-- Step 1: Project Details -->
+                <div class="form-step active" data-step="1">
+                  <h3>Tell us about your project</h3>
                   
                   <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" class="form-control" id="city" name="city" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="streetAddress">Street Address</label>
-                    <input type="text" class="form-control" id="streetAddress" name="streetAddress" required>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="state">State/Province</label>
-                        <input type="text" class="form-control" id="state" name="state">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="postalCode">Postal Code</label>
-                        <input type="text" class="form-control" id="postalCode" name="postalCode">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Step 3: Project Details -->
-                <div class="form-step" id="step-3" style="display: none;">
-                  <h3>Project Details</h3>
-                  
-                  <div class="form-group">
-                    <label>Which services are you interested in? (Select all that apply)</label>
-                    <div class="checkbox-group">
-                      <div class="custom-control">
-                        <input type="checkbox" class="custom-control-input" id="service-electrical" name="services[]" value="Electrical Installation">
-                        <label class="custom-control-label" for="service-electrical">Electrical Installation</label>
-                      </div>
-                      <div class="custom-control">
-                        <input type="checkbox" class="custom-control-input" id="service-cctv" name="services[]" value="CCTV Security Systems">
-                        <label class="custom-control-label" for="service-cctv">CCTV Security Systems</label>
-                      </div>
-                      <div class="custom-control">
-                        <input type="checkbox" class="custom-control-input" id="service-access" name="services[]" value="Access Control Systems">
-                        <label class="custom-control-label" for="service-access">Access Control Systems</label>
-                      </div>
-                      <div class="custom-control">
-                        <input type="checkbox" class="custom-control-input" id="service-alarm" name="services[]" value="Alarm & Monitoring">
-                        <label class="custom-control-label" for="service-alarm">Alarm & Monitoring</label>
-                      </div>
-                      <div class="custom-control">
-                        <input type="checkbox" class="custom-control-input" id="service-smart" name="services[]" value="Smart Home Solutions">
-                        <label class="custom-control-label" for="service-smart">Smart Home Solutions</label>
-                      </div>
-                      <div class="custom-control">
-                        <input type="checkbox" class="custom-control-input" id="service-maintenance" name="services[]" value="Maintenance & Support">
-                        <label class="custom-control-label" for="service-maintenance">Maintenance & Support</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="projectScope">Project Scope</label>
-                    <select class="form-control" id="projectScope" name="projectScope" required>
-                      <option value="">Select project scope</option>
-                      <option value="Small (1-2 rooms)">Small (1-2 rooms)</option>
-                      <option value="Medium (3-5 rooms)">Medium (3-5 rooms)</option>
-                      <option value="Large (6+ rooms)">Large (6+ rooms)</option>
-                      <option value="Commercial Building">Commercial Building</option>
-                      <option value="Industrial Facility">Industrial Facility</option>
+                    <label for="projectType">Project Type *</label>
+                    <select class="form-control" id="projectType" name="project_type" required>
+                      <option value="">Select project type</option>
+                      <option value="residential">Residential</option>
+                      <option value="commercial">Commercial</option>
+                      <option value="industrial">Industrial</option>
                     </select>
                   </div>
 
                   <div class="form-group">
-                    <label for="budget">Estimated Budget Range</label>
+                    <label for="propertySize">Property Size</label>
+                    <select class="form-control" id="propertySize" name="property_size">
+                      <option value="">Select property size</option>
+                      <option value="small">Small (1-3 rooms/offices)</option>
+                      <option value="medium">Medium (4-8 rooms/offices)</option>
+                      <option value="large">Large (9+ rooms/offices)</option>
+                      <option value="complex">Large Complex/Building</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="timeline">Project Timeline</label>
+                    <select class="form-control" id="timeline" name="timeline">
+                      <option value="">When do you need this completed?</option>
+                      <option value="urgent">Urgent (Within 1 week)</option>
+                      <option value="soon">Soon (Within 1 month)</option>
+                      <option value="flexible">Flexible (Within 3 months)</option>
+                      <option value="planning">Just planning ahead</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="budget">Estimated Budget (UGX)</label>
                     <select class="form-control" id="budget" name="budget">
                       <option value="">Select budget range</option>
-                      <option value="Under $1,000">Under $1,000</option>
-                      <option value="$1,000 - $5,000">$1,000 - $5,000</option>
-                      <option value="$5,000 - $10,000">$5,000 - $10,000</option>
-                      <option value="$10,000 - $25,000">$10,000 - $25,000</option>
-                      <option value="Over $25,000">Over $25,000</option>
+                      <option value="under-5m">Under 5 Million</option>
+                      <option value="5m-10m">5 - 10 Million</option>
+                      <option value="10m-20m">10 - 20 Million</option>
+                      <option value="20m-50m">20 - 50 Million</option>
+                      <option value="over-50m">Over 50 Million</option>
                     </select>
+                  </div>
+                </div>
+
+                <!-- Step 2: Services Required -->
+                <div class="form-step" data-step="2">
+                  <h3>Which services do you need?</h3>
+                  <p>Select all services that apply to your project:</p>
+                  
+                  <div class="checkbox-group">
+                    <div class="custom-control">
+                      <input type="checkbox" class="custom-control-input" id="electrical" name="services[]" value="electrical-installation">
+                      <label class="custom-control-label" for="electrical">Electrical Installation</label>
+                    </div>
+                    
+                    <div class="custom-control">
+                      <input type="checkbox" class="custom-control-input" id="cctv" name="services[]" value="cctv-security">
+                      <label class="custom-control-label" for="cctv">CCTV Security Systems</label>
+                    </div>
+                    
+                    <div class="custom-control">
+                      <input type="checkbox" class="custom-control-input" id="access" name="services[]" value="access-control">
+                      <label class="custom-control-label" for="access">Access Control Systems</label>
+                    </div>
+                    
+                    <div class="custom-control">
+                      <input type="checkbox" class="custom-control-input" id="alarm" name="services[]" value="alarm-systems">
+                      <label class="custom-control-label" for="alarm">Alarm & Monitoring</label>
+                    </div>
+                    
+                    <div class="custom-control">
+                      <input type="checkbox" class="custom-control-input" id="maintenance" name="services[]" value="maintenance">
+                      <label class="custom-control-label" for="maintenance">Maintenance & Support</label>
+                    </div>
+                    
+                    <div class="custom-control">
+                      <input type="checkbox" class="custom-control-input" id="smart" name="services[]" value="smart-home">
+                      <label class="custom-control-label" for="smart">Smart Home Solutions</label>
+                    </div>
                   </div>
 
                   <div class="form-group">
-                    <label for="timeline">Preferred Timeline</label>
-                    <select class="form-control" id="timeline" name="timeline">
-                      <option value="">Select timeline</option>
-                      <option value="ASAP">As soon as possible</option>
-                      <option value="Within 1 month">Within 1 month</option>
-                      <option value="Within 3 months">Within 3 months</option>
-                      <option value="Within 6 months">Within 6 months</option>
-                      <option value="No rush">No specific timeline</option>
-                    </select>
+                    <label for="projectDescription">Project Description</label>
+                    <textarea class="form-control" id="projectDescription" name="project_description" rows="4" placeholder="Please provide more details about your specific requirements..."></textarea>
+                  </div>
+                </div>
+
+                <!-- Step 3: Contact Information -->
+                <div class="form-step" data-step="3">
+                  <h3>Your contact information</h3>
+                  
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" class="form-control" id="firstName" name="first_name" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" class="form-control" id="lastName" name="last_name" required>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="form-group">
-                    <label for="additionalInfo">Additional Information</label>
-                    <textarea class="form-control" id="additionalInfo" name="additionalInfo" rows="4" placeholder="Any additional details about your project..."></textarea>
+                    <label for="email">Email Address *</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="location">Project Location *</label>
+                    <input type="text" class="form-control" id="location" name="location" placeholder="City, District, Uganda" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="company">Company/Organization (Optional)</label>
+                    <input type="text" class="form-control" id="company" name="company">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="preferredContact">Preferred Contact Method</label>
+                    <select class="form-control" id="preferredContact" name="preferred_contact">
+                      <option value="email">Email</option>
+                      <option value="phone">Phone Call</option>
+                      <option value="whatsapp">WhatsApp</option>
+                      <option value="any">Any method is fine</option>
+                    </select>
                   </div>
                 </div>
 
                 <!-- Navigation Buttons -->
                 <div class="form-navigation">
-                  <button type="button" class="btn btn-prev" id="prevBtn" onclick="prevStep()" style="display: none;">Previous Step</button>
-                  <button type="button" class="btn btn-next" id="nextBtn" onclick="nextStep()">Next Step</button>
+                  <button type="button" class="btn btn-prev" id="prevBtn" style="display: none;">Previous</button>
+                  <button type="button" class="btn btn-next" id="nextBtn">Next</button>
                   <button type="submit" class="btn btn-submit" id="submitBtn" style="display: none;">Submit Quote Request</button>
                 </div>
-
               </form>
             </div>
           </div>
@@ -276,38 +270,32 @@
           <!-- Sidebar -->
           <div class="col-lg-4">
             <div class="sidebar">
-              
-              <!-- Services Widget -->
               <div class="sidebar-widget">
                 <h4>Our Services</h4>
                 <ul class="service-links">
-                  <li><a href="work.html#electrical-installation"><i class="fa fa-bolt"></i> Electrical Installation</a></li>
-                  <li><a href="work.html#cctv-security"><i class="fa fa-video-camera"></i> CCTV Security</a></li>
-                  <li><a href="work.html#access-control"><i class="fa fa-shield"></i> Access Control</a></li>
-                  <li><a href="work.html#alarm-systems"><i class="fa fa-bell"></i> Alarm Systems</a></li>
-                  <li><a href="work.html#smart-home"><i class="fa fa-home"></i> Smart Home</a></li>
-                  <li><a href="work.html#maintenance"><i class="fa fa-wrench"></i> Maintenance</a></li>
+                  <li><a href="work.html#electrical-installation">Electrical Installation <i class="fa fa-arrow-right"></i></a></li>
+                  <li><a href="work.html#cctv-security">CCTV Security Systems <i class="fa fa-arrow-right"></i></a></li>
+                  <li><a href="work.html#access-control">Access Control <i class="fa fa-arrow-right"></i></a></li>
+                  <li><a href="work.html#alarm-systems">Alarm & Monitoring <i class="fa fa-arrow-right"></i></a></li>
+                  <li><a href="work.html#maintenance">Maintenance & Support <i class="fa fa-arrow-right"></i></a></li>
+                  <li><a href="work.html#smart-home">Smart Home Solutions <i class="fa fa-arrow-right"></i></a></li>
                 </ul>
               </div>
 
-              <!-- Contact Widget -->
               <div class="sidebar-widget">
                 <h4>Need Help?</h4>
-                <p><i class="fa fa-phone"></i> +256 704 000 474</p>
-                <p><i class="fa fa-envelope"></i> info@fuseelectrical.ug</p>
-                <p><i class="fa fa-map-marker"></i> Kampala, Uganda</p>
-                <p>Did you find what you need? <a href="index.html#contact" class="contact-link">Contact us →</a></p>
+                <p>Have questions about our services or need immediate assistance?</p>
+                <p><strong>Call us:</strong> <a href="tel:+256704000474" class="contact-link">+256 704 000 474</a></p>
+                <p><strong>Email:</strong> <a href="mailto:info@fuseelectrical.ug" class="contact-link">info@fuseelectrical.ug</a></p>
               </div>
 
-              <!-- CTA Widget -->
               <div class="sidebar-widget cta-widget">
                 <div class="cta-content">
-                  <i class="fa fa-calculator"></i>
-                  <h4>Need a Quotation?</h4>
-                  <p>Get a detailed quote for your electrical and security needs.</p>
+                  <i class="fa fa-phone"></i>
+                  <h4>Emergency Services</h4>
+                  <p>24/7 emergency electrical and security services available. Call us anytime for urgent assistance.</p>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -339,78 +327,114 @@
   <script src="lib/superfish/hoverIntent.js"></script>
   <script src="lib/superfish/superfish.min.js"></script>
   <script src="lib/wow/wow.min.js"></script>
-  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="lib/magnific-popup/magnific-popup.min.js"></script>
-  <script src="lib/sticky/sticky.js"></script>
 
-  <!-- Template Main Javascript File -->
-  <script src="js/main.js"></script>
-
-  <!-- Quotation Form JavaScript -->
+  <!-- Custom Quote Form Script -->
   <script>
-    let currentStep = 1;
-    const totalSteps = 3;
+    $(document).ready(function() {
+      let currentStep = 1;
+      const totalSteps = 3;
 
-    function showStep(step) {
-      // Hide all steps
-      for (let i = 1; i <= totalSteps; i++) {
-        document.getElementById(`step-${i}`).style.display = 'none';
-        document.getElementById(`step-${i}-header`).classList.remove('active');
-      }
-      
-      // Show current step
-      document.getElementById(`step-${step}`).style.display = 'block';
-      document.getElementById(`step-${step}-header`).classList.add('active');
-      
-      // Update navigation buttons
-      document.getElementById('prevBtn').style.display = step === 1 ? 'none' : 'inline-block';
-      document.getElementById('nextBtn').style.display = step === totalSteps ? 'none' : 'inline-block';
-      document.getElementById('submitBtn').style.display = step === totalSteps ? 'inline-block' : 'none';
-    }
-
-    function nextStep() {
-      if (currentStep < totalSteps) {
-        currentStep++;
-        showStep(currentStep);
-      }
-    }
-
-    function prevStep() {
-      if (currentStep > 1) {
-        currentStep--;
-        showStep(currentStep);
-      }
-    }
-
-    // Form submission
-    document.getElementById('quotationForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const formData = new FormData(this);
-      
-      fetch('submit-quote.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          alert('Thank you! Your quote request has been submitted successfully. We will contact you soon.');
-          this.reset();
-          currentStep = 1;
-          showStep(currentStep);
-        } else {
-          alert('There was an error submitting your request. Please try again.');
+      // Step navigation
+      $('#nextBtn').click(function() {
+        if (validateStep(currentStep)) {
+          if (currentStep < totalSteps) {
+            currentStep++;
+            showStep(currentStep);
+          }
         }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('There was an error submitting your request. Please try again.');
+      });
+
+      $('#prevBtn').click(function() {
+        if (currentStep > 1) {
+          currentStep--;
+          showStep(currentStep);
+        }
+      });
+
+      // Step header clicks
+      $('.step-header').click(function() {
+        const targetStep = parseInt($(this).data('step'));
+        if (targetStep <= currentStep || validateStep(currentStep)) {
+          currentStep = targetStep;
+          showStep(currentStep);
+        }
+      });
+
+      function showStep(step) {
+        // Hide all steps
+        $('.form-step').removeClass('active');
+        $('.step-header').removeClass('active');
+        
+        // Show current step
+        $(`.form-step[data-step="${step}"]`).addClass('active');
+        $(`.step-header[data-step="${step}"]`).addClass('active');
+        
+        // Update navigation buttons
+        $('#prevBtn').toggle(step > 1);
+        $('#nextBtn').toggle(step < totalSteps);
+        $('#submitBtn').toggle(step === totalSteps);
+      }
+
+      function validateStep(step) {
+        let isValid = true;
+        const currentStepElement = $(`.form-step[data-step="${step}"]`);
+        
+        // Check required fields in current step
+        currentStepElement.find('input[required], select[required]').each(function() {
+          if (!$(this).val()) {
+            isValid = false;
+            $(this).addClass('is-invalid');
+          } else {
+            $(this).removeClass('is-invalid');
+          }
+        });
+
+        // Special validation for step 2 (at least one service must be selected)
+        if (step === 2) {
+          const servicesSelected = $('input[name="services[]"]:checked').length > 0;
+          if (!servicesSelected) {
+            alert('Please select at least one service.');
+            isValid = false;
+          }
+        }
+
+        return isValid;
+      }
+
+      // Form submission
+      $('#quoteForm').submit(function(e) {
+        e.preventDefault();
+        
+        if (validateStep(3)) {
+          // Show loading state
+          $('#submitBtn').html('<i class="fa fa-spinner fa-spin"></i> Submitting...').prop('disabled', true);
+          
+          // Submit form via AJAX
+          $.ajax({
+            url: $(this).attr('action'),
+            method: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+              alert('Thank you! Your quote request has been submitted successfully. We will contact you within 24 hours.');
+              $('#quoteForm')[0].reset();
+              currentStep = 1;
+              showStep(1);
+            },
+            error: function() {
+              alert('Sorry, there was an error submitting your request. Please try again or contact us directly.');
+            },
+            complete: function() {
+              $('#submitBtn').html('Submit Quote Request').prop('disabled', false);
+            }
+          });
+        }
+      });
+
+      // Remove validation styling on input
+      $('input, select').on('input change', function() {
+        $(this).removeClass('is-invalid');
       });
     });
-
-    // Initialize form
-    showStep(currentStep);
   </script>
 
 </body>
