@@ -7,7 +7,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 // Check if request is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(['error' => 'Method not allowed']);
+    echo json_encode(['success' => false, 'error' => 'Method not allowed']);
     exit;
 }
 
@@ -50,7 +50,7 @@ if (empty($services)) $errors[] = 'At least one service must be selected';
 // Return errors if validation fails
 if (!empty($errors)) {
     http_response_code(400);
-    echo json_encode(['errors' => $errors]);
+    echo json_encode(['success' => false, 'errors' => $errors, 'message' => implode(', ', $errors)]);
     exit;
 }
 
@@ -59,38 +59,39 @@ $services = array_map('sanitizeInput', $services);
 $servicesText = implode(', ', $services);
 
 // Prepare email content
-$to = 'info@fuseelectrical.ug';
+$to = 'harunk3570@gmail.com';
 $subject = 'New Quote Request - ' . $firstName . ' ' . $lastName;
 
 $message = "
-New Quote Request Received
+NEW QUOTE REQUEST FROM FUSE ELECTRICAL WEBSITE
 
 CONTACT INFORMATION:
+====================
 Name: {$firstName} {$lastName}
 Email: {$email}
 Phone: {$phone}
 Location: {$location}
-Company: {$company}
+Company: " . ($company ?: 'Not specified') . "
 Preferred Contact: {$preferredContact}
 
 PROJECT DETAILS:
+================
 Project Type: {$projectType}
-Property Size: {$propertySize}
-Timeline: {$timeline}
-Budget: {$budget} 
-Project Type: {$projectType}
-Property Size: {$propertySize}
-Timeline: {$timeline}
-Budget: {$budget}
+Property Size: " . ($propertySize ?: 'Not specified') . "
+Timeline: " . ($timeline ?: 'Not specified') . "
+Budget: " . ($budget ?: 'Not specified') . "
 
 SERVICES REQUESTED:
+==================
 {$servicesText}
 
 PROJECT DESCRIPTION:
-{$projectDescription}
+===================
+" . ($projectDescription ?: 'No additional description provided') . "
 
 ---
-This quote request was submitted on " . date('Y-m-d H:i:s') . "
+This quote request was submitted on " . date('Y-m-d H:i:s') . " from the Fuse Electrical and Security Systems website.
+Please respond within 24 hours for the best customer experience.
 ";
 
 // Email headers
@@ -116,25 +117,25 @@ Our team will review your requirements and contact you within 24 hours via your 
 Project Details Summary:
 - Project Type: {$projectType}
 - Location: {$location}
-- Timeline: {$timeline}
+- Timeline: " . ($timeline ?: 'Flexible') . "
 
 If you have any urgent questions, please don't hesitate to contact us:
 Phone: +256 704 000 474
-Email: info@fuseelectrical.ug
+Email: harunk3570@gmail.com
 
 Best regards,
 Fuse Electrical and Security Systems Team
 Professional Electrical & Security Solutions in Uganda
 ";
 
-$customerHeaders = "From: info@fuseelectrical.ug\r\n";
+$customerHeaders = "From: harunk3570@gmail.com\r\n";
 $customerHeaders .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
 mail($email, $customerSubject, $customerMessage, $customerHeaders);
 
-// Log the quote request (optional - you can store in database or file)
+// Log the quote request
 $logEntry = date('Y-m-d H:i:s') . " - Quote request from {$firstName} {$lastName} ({$email}) for {$servicesText}\n";
-file_put_contents('quote_requests.log', $logEntry, FILE_APPEND | LOCK_EX);
+@file_put_contents('quote_requests.log', $logEntry, FILE_APPEND | LOCK_EX);
 
 // Return success response
 if ($emailSent) {
@@ -145,7 +146,8 @@ if ($emailSent) {
 } else {
     http_response_code(500);
     echo json_encode([
-        'error' => 'Failed to send email. Please try again or contact us directly.'
+        'success' => false,
+        'error' => 'Failed to send email. Please try again or contact us directly at harunk3570@gmail.com'
     ]);
 }
 ?>
