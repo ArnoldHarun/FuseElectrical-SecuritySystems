@@ -1,61 +1,123 @@
-const $ = require("jquery") // Declare the $ variable
-
-$(() => {
-  $(".contactForm").submit(function (e) {
+;(($) => {
+  //Contact
+  $("form.contactForm").submit(function (e) {
     e.preventDefault()
 
-    var form = $(this)
-    var formData = {
-      name: form.find('input[name="name"]').val(),
-      email: form.find('input[name="email"]').val(),
-      subject: form.find('input[name="subject"]').val(),
-      message: form.find('textarea[name="message"]').val(),
-    }
+    var f = $(this).find(".form-group"),
+      ferror = false,
+      emailExp = /^[^\s()<>@,;:/]+@\w[\w.-]+\.[a-z]{2,}$/i
 
-    // Basic validation
-    var errors = []
-    if (!formData.name || formData.name.length < 4) {
-      errors.push("Please enter at least 4 characters for your name")
-    }
-    if (!formData.email || !isValidEmail(formData.email)) {
-      errors.push("Please enter a valid email address")
-    }
-    if (!formData.subject || formData.subject.length < 8) {
-      errors.push("Please enter at least 8 characters for the subject")
-    }
-    if (!formData.message) {
-      errors.push("Please write a message")
-    }
+    f.children("input").each(function () {
+      // run all inputs
+      var i = $(this) // current input
+      var rule = i.attr("data-rule")
 
-    if (errors.length > 0) {
-      $("#errormessage").html(errors.join("<br>")).show()
-      $("#sendmessage").hide()
-      return
-    }
+      if (rule !== undefined) {
+        var ierror = false // error flag for current input
+        var pos = rule.indexOf(":", 0)
+        if (pos >= 0) {
+          var exp = rule.substr(pos + 1, rule.length)
+          rule = rule.substr(0, pos)
+        } else {
+          rule = rule.substr(pos + 1, rule.length)
+        }
 
-    // Hide error messages
-    $("#errormessage").hide()
+        switch (rule) {
+          case "required":
+            if (i.val() === "") {
+              ferror = ierror = true
+            }
+            break
 
-    // Send email using EmailJS or similar service
-    // For now, we'll simulate sending
+          case "minlen":
+            if (i.val().length < Number.parseInt(exp)) {
+              ferror = ierror = true
+            }
+            break
+
+          case "email":
+            if (!emailExp.test(i.val())) {
+              ferror = ierror = true
+            }
+            break
+
+          case "checked":
+            if (!i.attr("checked")) {
+              ferror = ierror = true
+            }
+            break
+
+          case "regexp":
+            exp = new RegExp(exp)
+            if (!exp.test(i.val())) {
+              ferror = ierror = true
+            }
+            break
+        }
+        i.next(".validation")
+          .html(ierror ? (i.attr("data-msg") !== undefined ? i.attr("data-msg") : "wrong Input") : "")
+          .show("blind")
+      }
+    })
+
+    f.children("textarea").each(function () {
+      // run all inputs
+      var i = $(this) // current input
+      var rule = i.attr("data-rule")
+
+      if (rule !== undefined) {
+        var ierror = false // error flag for current input
+        var pos = rule.indexOf(":", 0)
+        if (pos >= 0) {
+          var exp = rule.substr(pos + 1, rule.length)
+          rule = rule.substr(0, pos)
+        } else {
+          rule = rule.substr(pos + 1, rule.length)
+        }
+
+        switch (rule) {
+          case "required":
+            if (i.val() === "") {
+              ferror = ierror = true
+            }
+            break
+
+          case "minlen":
+            if (i.val().length < Number.parseInt(exp)) {
+              ferror = ierror = true
+            }
+            break
+        }
+        i.next(".validation")
+          .html(ierror ? (i.attr("data-msg") != undefined ? i.attr("data-msg") : "wrong Input") : "")
+          .show("blind")
+      }
+    })
+
+    if (ferror) return false
+
+    var str = $(this).serialize()
     $.ajax({
+      type: "POST",
       url: "submit-contact.php",
-      method: "POST",
-      data: formData,
-      success: (response) => {
-        $("#sendmessage").show()
-        $("#errormessage").hide()
-        form[0].reset()
+      data: str,
+      success: (msg) => {
+        if (msg == "OK") {
+          $("#sendmessage").addClass("show")
+          $("#errormessage").removeClass("show")
+          $(".contactForm").find("input, textarea").val("")
+        } else {
+          $("#sendmessage").removeClass("show")
+          $("#errormessage").addClass("show")
+          $("#errormessage").html(msg)
+        }
       },
       error: () => {
-        $("#errormessage").html("Sorry, there was an error sending your message. Please try again.").show()
-        $("#sendmessage").hide()
+        $("#sendmessage").removeClass("show")
+        $("#errormessage").addClass("show")
+        $("#errormessage").html("Sorry, there was an error sending your message. Please try again.")
       },
     })
+    return false
   })
-
-  function isValidEmail(email) {
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return emailRegex.test(email)
-  }
-})
+})(jQuery)
