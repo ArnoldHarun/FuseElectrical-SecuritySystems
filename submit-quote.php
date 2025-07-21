@@ -1,153 +1,94 @@
 <?php
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form data
+    $project_type = strip_tags(trim($_POST["project_type"]));
+    $project_size = strip_tags(trim($_POST["project_size"]));
+    $timeline = strip_tags(trim($_POST["timeline"]));
+    $budget = strip_tags(trim($_POST["budget"]));
+    $services = isset($_POST["services"]) ? $_POST["services"] : array();
+    $project_description = strip_tags(trim($_POST["project_description"]));
+    $full_name = strip_tags(trim($_POST["full_name"]));
+    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
+    $phone = strip_tags(trim($_POST["phone"]));
+    $company = strip_tags(trim($_POST["company"]));
+    $location = strip_tags(trim($_POST["location"]));
+    $preferred_contact = strip_tags(trim($_POST["preferred_contact"]));
+    $additional_notes = strip_tags(trim($_POST["additional_notes"]));
 
-// Check if request is POST
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'error' => 'Method not allowed']);
-    exit;
-}
+    // Validate required fields
+    if (empty($project_type) || empty($project_size) || empty($full_name) || empty($email) || empty($phone) || empty($location) || empty($services)) {
+        http_response_code(400);
+        echo "Please fill in all required fields.";
+        exit;
+    }
 
-// Sanitize and validate input data
-function sanitizeInput($data) {
-    return htmlspecialchars(strip_tags(trim($data)));
-}
+    // Validate email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        http_response_code(400);
+        echo "Please provide a valid email address.";
+        exit;
+    }
 
-function validateEmail($email) {
-    return filter_var($email, FILTER_VALIDATE_EMAIL);
-}
+    // Set the recipient email address
+    $recipient = "harunk3570@gmail.com";
 
-// Get form data
-$firstName = sanitizeInput($_POST['first_name'] ?? '');
-$lastName = sanitizeInput($_POST['last_name'] ?? '');
-$email = sanitizeInput($_POST['email'] ?? '');
-$phone = sanitizeInput($_POST['phone'] ?? '');
-$location = sanitizeInput($_POST['location'] ?? '');
-$company = sanitizeInput($_POST['company'] ?? '');
-$projectType = sanitizeInput($_POST['project_type'] ?? '');
-$propertySize = sanitizeInput($_POST['property_size'] ?? '');
-$timeline = sanitizeInput($_POST['timeline'] ?? '');
-$budget = sanitizeInput($_POST['budget'] ?? '');
-$services = $_POST['services'] ?? [];
-$projectDescription = sanitizeInput($_POST['project_description'] ?? '');
-$preferredContact = sanitizeInput($_POST['preferred_contact'] ?? '');
+    // Set the email subject
+    $email_subject = "New Quote Request from $full_name";
 
-// Validate required fields
-$errors = [];
+    // Build the email content
+    $email_content = "New Quote Request Details:\n\n";
+    $email_content .= "=== PROJECT INFORMATION ===\n";
+    $email_content .= "Project Type: $project_type\n";
+    $email_content .= "Project Size: $project_size\n";
+    $email_content .= "Timeline: $timeline\n";
+    $email_content .= "Budget: $budget\n\n";
+    
+    $email_content .= "=== SERVICES REQUIRED ===\n";
+    foreach ($services as $service) {
+        $service_name = str_replace('-', ' ', ucwords($service, '-'));
+        $email_content .= "• $service_name\n";
+    }
+    $email_content .= "\n";
+    
+    if (!empty($project_description)) {
+        $email_content .= "=== PROJECT DESCRIPTION ===\n";
+        $email_content .= "$project_description\n\n";
+    }
+    
+    $email_content .= "=== CONTACT INFORMATION ===\n";
+    $email_content .= "Name: $full_name\n";
+    $email_content .= "Email: $email\n";
+    $email_content .= "Phone: $phone\n";
+    if (!empty($company)) {
+        $email_content .= "Company: $company\n";
+    }
+    $email_content .= "Location: $location\n";
+    $email_content .= "Preferred Contact: $preferred_contact\n";
+    
+    if (!empty($additional_notes)) {
+        $email_content .= "\n=== ADDITIONAL NOTES ===\n";
+        $email_content .= "$additional_notes\n";
+    }
+    
+    $email_content .= "\n=== SUBMISSION DETAILS ===\n";
+    $email_content .= "Submitted: " . date('Y-m-d H:i:s') . "\n";
+    $email_content .= "IP Address: " . $_SERVER['REMOTE_ADDR'] . "\n";
 
-if (empty($firstName)) $errors[] = 'First name is required';
-if (empty($lastName)) $errors[] = 'Last name is required';
-if (empty($email)) $errors[] = 'Email is required';
-if (!validateEmail($email)) $errors[] = 'Valid email is required';
-if (empty($phone)) $errors[] = 'Phone number is required';
-if (empty($location)) $errors[] = 'Project location is required';
-if (empty($projectType)) $errors[] = 'Project type is required';
-if (empty($services)) $errors[] = 'At least one service must be selected';
+    // Build the email headers
+    $email_headers = "From: $full_name <$email>\r\n";
+    $email_headers .= "Reply-To: $email\r\n";
+    $email_headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
-// Return errors if validation fails
-if (!empty($errors)) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'errors' => $errors, 'message' => implode(', ', $errors)]);
-    exit;
-}
-
-// Sanitize services array
-$services = array_map('sanitizeInput', $services);
-$servicesText = implode(', ', $services);
-
-// Prepare email content
-$to = 'harunk3570@gmail.com';
-$subject = 'New Quote Request - ' . $firstName . ' ' . $lastName;
-
-$message = "
-NEW QUOTE REQUEST FROM FUSE ELECTRICAL WEBSITE
-
-CONTACT INFORMATION:
-====================
-Name: {$firstName} {$lastName}
-Email: {$email}
-Phone: {$phone}
-Location: {$location}
-Company: " . ($company ?: 'Not specified') . "
-Preferred Contact: {$preferredContact}
-
-PROJECT DETAILS:
-================
-Project Type: {$projectType}
-Property Size: " . ($propertySize ?: 'Not specified') . "
-Timeline: " . ($timeline ?: 'Not specified') . "
-Budget: " . ($budget ?: 'Not specified') . "
-
-SERVICES REQUESTED:
-==================
-{$servicesText}
-
-PROJECT DESCRIPTION:
-===================
-" . ($projectDescription ?: 'No additional description provided') . "
-
----
-This quote request was submitted on " . date('Y-m-d H:i:s') . " from the Fuse Electrical and Security Systems website.
-Please respond within 24 hours for the best customer experience.
-";
-
-// Email headers
-$headers = "From: noreply@fuseelectrical.ug\r\n";
-$headers .= "Reply-To: {$email}\r\n";
-$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-
-// Send email
-$emailSent = mail($to, $subject, $message, $headers);
-
-// Also send confirmation email to customer
-$customerSubject = 'Quote Request Confirmation - Fuse Electrical and Security Systems';
-$customerMessage = "
-Dear {$firstName} {$lastName},
-
-Thank you for your interest in Fuse Electrical and Security Systems!
-
-We have received your quote request for the following services:
-{$servicesText}
-
-Our team will review your requirements and contact you within 24 hours via your preferred contact method ({$preferredContact}).
-
-Project Details Summary:
-- Project Type: {$projectType}
-- Location: {$location}
-- Timeline: " . ($timeline ?: 'Flexible') . "
-
-If you have any urgent questions, please don't hesitate to contact us:
-Phone: +256 704 000 474
-Email: harunk3570@gmail.com
-
-Best regards,
-Fuse Electrical and Security Systems Team
-Professional Electrical & Security Solutions in Uganda
-";
-
-$customerHeaders = "From: harunk3570@gmail.com\r\n";
-$customerHeaders .= "Content-Type: text/plain; charset=UTF-8\r\n";
-
-mail($email, $customerSubject, $customerMessage, $customerHeaders);
-
-// Log the quote request
-$logEntry = date('Y-m-d H:i:s') . " - Quote request from {$firstName} {$lastName} ({$email}) for {$servicesText}\n";
-@file_put_contents('quote_requests.log', $logEntry, FILE_APPEND | LOCK_EX);
-
-// Return success response
-if ($emailSent) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'Quote request submitted successfully'
-    ]);
+    // Send the email
+    if (mail($recipient, $email_subject, $email_content, $email_headers)) {
+        http_response_code(200);
+        echo "OK";
+    } else {
+        http_response_code(500);
+        echo "Sorry, there was an error sending your quote request. Please try again or contact us directly.";
+    }
 } else {
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'error' => 'Failed to send email. Please try again or contact us directly at harunk3570@gmail.com'
-    ]);
+    http_response_code(405);
+    echo "Method not allowed.";
 }
 ?>
