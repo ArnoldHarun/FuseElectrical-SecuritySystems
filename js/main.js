@@ -1,4 +1,4 @@
-;(($) => {
+;((window, document, $) => {
   // Preloader
   $(window).on("load", () => {
     if ($("#preloader").length) {
@@ -29,6 +29,8 @@
     return false
   })
 
+  // Import WOW library
+  const WOW = window.WOW
   // Initiate the wowjs animation library
   new WOW().init()
 
@@ -156,24 +158,24 @@
   })
 
   // Intro carousel
-  var introCarousel = $("#intro-carousel")
-  var introCarouselIndicators = $("#intro-carousel-indicators")
-  introCarousel
-    .find(".carousel-inner")
-    .children(".carousel-item")
-    .each((index) => {
-      index === 0
-        ? introCarouselIndicators.append(
-            "<li data-target='#intro-carousel' data-slide-to='" + index + "' class='active'></li>",
-          )
-        : introCarouselIndicators.append("<li data-target='#intro-carousel' data-slide-to='" + index + "'></li>")
-    })
+  // var introCarousel = $("#intro-carousel")
+  // var introCarouselIndicators = $("#intro-carousel-indicators")
+  // introCarousel
+  //   .find(".carousel-inner")
+  //   .children(".carousel-item")
+  //   .each((index) => {
+  //     index === 0
+  //       ? introCarouselIndicators.append(
+  //           "<li data-target='#intro-carousel' data-slide-to='" + index + "' class='active'></li>",
+  //         )
+  //       : introCarouselIndicators.append("<li data-target='#intro-carousel' data-slide-to='" + index + "'></li>")
+  //   })
 
-  introCarousel.on("slid.bs.carousel", function (e) {
-    $(this).find("h2").addClass("animate__animated animate__fadeInDown")
-    $(this).find("p").addClass("animate__animated animate__fadeInUp")
-    $(this).find(".btn-get-started").addClass("animate__animated animate__fadeInUp")
-  })
+  // introCarousel.on("slid.bs.carousel", function (e) {
+  //   $(this).find("h2").addClass("animate__animated animate__fadeInDown")
+  //   $(this).find("p").addClass("animate__animated animate__fadeInUp")
+  //   $(this).find(".btn-get-started").addClass("animate__animated animate__fadeInUp")
+  // })
 
   // Initialize Owl Carousel for intro
   $("#intro-carousel").owlCarousel({
@@ -246,6 +248,7 @@
 
   // Google Maps
   if ($("#google-map").length) {
+    const google = window.google
     var map_lat = $("#google-map").data("latitude")
     var map_lng = $("#google-map").data("longitude")
     var map_zoom = 15
@@ -269,4 +272,4 @@
       title: "Fuse Electrical and Security Systems",
     })
   }
-})(jQuery)
+})(window, document, jQuery)
